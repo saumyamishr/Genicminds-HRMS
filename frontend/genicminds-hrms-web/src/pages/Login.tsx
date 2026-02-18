@@ -11,30 +11,32 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 shadow rounded w-80">
-        <h2 className="text-xl font-bold mb-4 text-center">Login as</h2>
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg)]">
+      <div className="bg-white p-8 shadow-lg rounded-xl w-80">
+        <h2 className="text-xl font-bold mb-6 text-center text-[var(--color-secondary)]">
+          Genic Minds HRMS
+        </h2>
 
         <div className="space-y-3">
           <button
             onClick={() => handleLogin("ADMIN")}
-            className="w-full bg-orange-500 text-white py-2 rounded"
+            className="w-full bg-[var(--color-secondary)] text-white py-2 rounded-lg hover:opacity-90 transition"
           >
-            Admin
+            Login as Admin
           </button>
 
           <button
             onClick={() => handleLogin("HR")}
-            className="w-full bg-blue-500 text-white py-2 rounded"
+            className="w-full bg-[var(--color-primary)] text-white py-2 rounded-lg hover:bg-[var(--color-primary-dark)] transition"
           >
-            HR
+            Login as HR
           </button>
 
           <button
             onClick={() => handleLogin("EMPLOYEE")}
-            className="w-full bg-green-500 text-white py-2 rounded"
+            className="w-full border border-[var(--color-primary)] text-[var(--color-primary)] py-2 rounded-lg hover:bg-[var(--color-primary)] hover:text-white transition"
           >
-            Employee
+            Login as Employee
           </button>
         </div>
       </div>

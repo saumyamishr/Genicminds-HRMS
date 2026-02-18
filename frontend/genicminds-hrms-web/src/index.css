@@ -3,3 +3,11 @@
 body {
   @apply bg-gray-100;
 }
+
+:root {
+  --color-primary: #4FB6B2;       /* Teal */
+  --color-primary-dark: #3aa19d;
+  --color-secondary: #1F6FB2;     /* Blue */
+  --color-accent: #7ED6D1;
+  --color-bg: #F4F6F8;
+}
