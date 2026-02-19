@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import Employees from "./pages/Employees";
+import Employees from "./pages/employees/Employees";
 import Departments from "./pages/Departments";
 import Leave from "./pages/Leave";
 import Attendance from "./pages/Attendance";
@@ -27,7 +27,7 @@ function App() {
           </Route>
         </Route>
 
-        <Route element={<ProtectedRoute allowedRoles={["EMPLOYEE"]} />}>
+        <Route element={<ProtectedRoute allowedRoles={["ADMIN", "HR", "EMPLOYEE"]} />}>
           <Route element={<MainLayout />}>
             <Route path="/leave" element={<Leave />} />
             <Route path="/attendance" element={<Attendance />} />

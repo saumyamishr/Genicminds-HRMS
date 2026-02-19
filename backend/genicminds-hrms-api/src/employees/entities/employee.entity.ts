@@ -1,25 +1,10 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  OneToOne,
-  JoinColumn,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { User } from '../../users/entities/user.entity';
-import { LeaveRequest } from '../../leave/entities/leave-request.entity'; 
-import { JobTitle } from 'src/admin/entities/job-title.entity';
-import { Attendance } from 'src/attendance/entities/attendance.entity';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Department } from 'src/admin/entities/department.entity';
+import { JobTitle } from 'src/admin/entities/job-title.entity';
+import { BaseEntity } from 'src/common/entities/base.entity';
 
-@Entity()
-export class Employee {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+@Entity('employees')
+export class Employee extends BaseEntity {
   @Column({ unique: true })
   employeeId: string;
 
@@ -53,25 +38,80 @@ export class Employee {
   @Column({ nullable: true })
   address: string;
 
-  @ManyToOne(() => Department, (department) => department.employees)
+  @Column({ nullable: true })
+  emergencyContact: string;
+
+  @Column({ nullable: true })
+  bloodGroup: string;
+
+  @Column({ nullable: true })
+  panNumber: string;
+
+  @Column({ nullable: true })
+  aadharNumber: string;
+
+  @Column({ nullable: true })
+  hireDate: Date;
+
+  @Column({ nullable: true })
+  salary: number;
+
+  @Column({ nullable: true })
+  employmentType: string; // Full Time, Part Time, Contract, Intern
+
+  @Column({ nullable: true })
+  workLocation: string;
+
+  @Column({ nullable: true })
+  probationEndDate: Date;
+
+  @Column({ nullable: true })
+  managerId: number;
+
+  @Column({ 
+    type: 'enum',
+    enum: ['active', 'inactive', 'onLeave', 'terminated', 'suspended'],
+    default: 'active'
+  })
+  status: string;
+
+  @ManyToOne(() => Department)
+  @JoinColumn({ name: 'departmentId' })
   department: Department;
 
-  @ManyToOne(() => JobTitle, (jobTitle) => jobTitle.employees)
+  @Column({ nullable: true })
+  departmentId: number;
+
+  @ManyToOne(() => JobTitle)
+  @JoinColumn({ name: 'jobTitleId' })
   jobTitle: JobTitle;
 
-  @OneToOne(() => User, (user) => user.employee)
-  @JoinColumn()
-  user: User;
+  @Column({ nullable: true })
+  jobTitleId: number;
 
-  @OneToMany(() => LeaveRequest, (leave) => leave.employee)
-  leaveRequests: LeaveRequest[];
+  // Document fields
+  @Column({ nullable: true })
+  resume: string;
 
-  @OneToMany(() => Attendance, (attendance) => attendance.employee)
-  attendances: Attendance[];
+  @Column({ nullable: true })
+  offerLetter: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @Column({ nullable: true })
+  idProof: string;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @Column({ nullable: true })
+  addressProof: string;
+
+  @Column({ nullable: true })
+  educationDocs: string;
+
+  @Column({ nullable: true })
+  experienceDocs: string;
+
+  // Audit fields
+  @Column({ nullable: true })
+  createdBy: number;
+
+  @Column({ nullable: true })
+  updatedBy: number;
 }
