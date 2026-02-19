@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { Pencil, Trash2, Search, ChevronLeft, ChevronRight, Eye } from "lucide-react";
-import EmployeeForm from "./EmployeeForm";
-import EmployeeDetails from "./EmployeeDetails";
-
+import EmployeeDetails from "./EmployeeDetails"; // Remove EmployeeForm import
 
 interface EmployeeTableProps {
   employees: any[];
   refresh: () => void;
+  onEdit: (employee: any) => void; // Add this prop
 }
 
-const EmployeeTable = ({ employees, refresh }: EmployeeTableProps) => {
+const EmployeeTable = ({ employees, refresh, onEdit }: EmployeeTableProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [editingEmployee, setEditingEmployee] = useState<any>(null);
+  // Remove editingEmployee state
   const [viewingEmployee, setViewingEmployee] = useState<any>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [employeeToDelete, setEmployeeToDelete] = useState<any>(null);
@@ -125,7 +124,7 @@ const EmployeeTable = ({ employees, refresh }: EmployeeTableProps) => {
                       <Eye className="w-4 h-4" />
                     </button>
                     <button
-                      onClick={() => setEditingEmployee(emp)}
+                      onClick={() => onEdit(emp)} // Use parent's onEdit instead of local state
                       className="p-1 text-gray-500 hover:text-green-600 hover:bg-green-50 rounded transition-colors"
                       title="Edit"
                     >
@@ -182,16 +181,9 @@ const EmployeeTable = ({ employees, refresh }: EmployeeTableProps) => {
         </div>
       )}
 
-      {/* Edit Modal */}
-      {editingEmployee && (
-        <EmployeeForm
-          employee={editingEmployee}
-          close={() => setEditingEmployee(null)}
-          refresh={refresh}
-        />
-      )}
+      {/* Remove the Edit Modal section - it's now handled by parent */}
 
-      {/* View Details Modal - You'll need to create this component */}
+      {/* View Details Modal */}
       {viewingEmployee && (
         <EmployeeDetails
           employee={viewingEmployee}

@@ -3,11 +3,13 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+  JoinColumn,
   CreateDateColumn,
 } from 'typeorm';
+
 import { Employee } from '../../employees/entities/employee.entity';
 
-@Entity()
+@Entity('attendance')
 export class Attendance {
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,12 +17,16 @@ export class Attendance {
   @ManyToOne(() => Employee, (employee) => employee.attendances, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'employeeId' })
   employee: Employee;
 
   @Column()
+  employeeId: number;
+
+  @Column({ type: 'timestamp' })
   checkIn: Date;
 
-  @Column({ nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   checkOut: Date;
 
   @CreateDateColumn()
