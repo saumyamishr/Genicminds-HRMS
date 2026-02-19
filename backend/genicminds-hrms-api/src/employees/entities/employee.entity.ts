@@ -1,7 +1,18 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
+
 import { Department } from 'src/admin/entities/department.entity';
 import { JobTitle } from 'src/admin/entities/job-title.entity';
 import { BaseEntity } from 'src/common/entities/base.entity';
+import { Attendance } from 'src/attendance/entities/attendance.entity';
+import { LeaveRequest } from 'src/leave/entities/leave-request.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Entity('employees')
 export class Employee extends BaseEntity {
@@ -68,12 +79,16 @@ export class Employee extends BaseEntity {
   @Column({ nullable: true })
   managerId: number;
 
-  @Column({ 
+  @Column({
     type: 'enum',
     enum: ['active', 'inactive', 'onLeave', 'terminated', 'suspended'],
-    default: 'active'
+    default: 'active',
   })
   status: string;
+
+  // ==============================
+  // 🔹 Department Relation
+  // ==============================
 
   @ManyToOne(() => Department)
   @JoinColumn({ name: 'departmentId' })
@@ -82,6 +97,10 @@ export class Employee extends BaseEntity {
   @Column({ nullable: true })
   departmentId: number;
 
+  // ==============================
+  // 🔹 Job Title Relation
+  // ==============================
+
   @ManyToOne(() => JobTitle)
   @JoinColumn({ name: 'jobTitleId' })
   jobTitle: JobTitle;
@@ -89,7 +108,31 @@ export class Employee extends BaseEntity {
   @Column({ nullable: true })
   jobTitleId: number;
 
-  // Document fields
+  // ==============================
+  // 🔹 User Relation (One-to-One)
+  // ==============================
+
+  @OneToOne(() => User, (user) => user.employee)
+  user: User;
+
+  // ==============================
+  // 🔹 Attendance Relation
+  // ==============================
+
+  @OneToMany(() => Attendance, (attendance) => attendance.employee)
+  attendances: Attendance[];
+
+  // ==============================
+  // 🔹 Leave Requests Relation
+  // ==============================
+
+  @OneToMany(() => LeaveRequest, (leave) => leave.employee)
+  leaveRequests: LeaveRequest[];
+
+  // ==============================
+  // 🔹 Document Fields
+  // ==============================
+
   @Column({ nullable: true })
   resume: string;
 
@@ -108,7 +151,10 @@ export class Employee extends BaseEntity {
   @Column({ nullable: true })
   experienceDocs: string;
 
-  // Audit fields
+  // ==============================
+  // 🔹 Audit Fields
+  // ==============================
+
   @Column({ nullable: true })
   createdBy: number;
 
