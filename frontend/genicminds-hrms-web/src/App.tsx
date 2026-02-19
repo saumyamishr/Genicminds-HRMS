@@ -7,12 +7,18 @@ import Leave from "./pages/Leave";
 import Attendance from "./pages/Attendance";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import MainLayout from "./layouts/MainLayout";
+import Register from "./pages/Register";
+import {Toaster} from "react-hot-toast"
 
 function App() {
   return (
+
+    <>
+    <Toaster position="top-right" reverseOrder={false} />
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         <Route element={<ProtectedRoute />}>
           <Route element={<MainLayout />}>
@@ -35,6 +41,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </>
   );
 }
 
