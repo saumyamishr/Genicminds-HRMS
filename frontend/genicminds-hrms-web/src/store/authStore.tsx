@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const fakeUser: AuthUser = {
       id: "1",
       name: role,
-      role,``
+      role:role,
       token: "fake-jwt-token",
     };
 
