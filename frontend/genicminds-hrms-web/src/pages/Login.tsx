@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useAuth } from "../store/authStore";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../../public/Genicminds-logo.png";
-import hr_image from "../../public/hr_online_1.jpg";
+// import hr_image from "../../public/hr_online_1.jpg";
 import card_img from "../../public/card_img.jpg"
 import { CiUser } from "react-icons/ci";
-import { IoMdKey } from "react-icons/io";
+// import { IoMdKey } from "react-icons/io";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
@@ -89,7 +89,7 @@ export default function Login() {
 
               {/* Username */}
               <div>
-                <label className="flex items-center gap-2 text-[var(--color-secondary)] text-sm mb-2">
+                <label className="flex items-center gap-2 text-(--color-secondary) text-sm mb-2">
                   <CiUser /> Username
                 </label>
 
@@ -98,18 +98,18 @@ export default function Login() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your username"
-                  className="w-full border border-[var(--color-accent)] 
+                  className="w-full border border-(--color-accent) 
                              rounded-xl px-4 py-3
                              focus:outline-none 
                              focus:ring-2 
-                             focus:ring-[var(--color-primary)]
+                             focus:ring-(--color-primary)
                              transition-all duration-300"
                 />
               </div>
 
               {/* Password */}
               <div>
-                <label className="flex items-center gap-2 text-[var(--color-secondary)] text-sm mb-2">
+                <label className="flex items-center gap-2 text-(--color-secondary) text-sm mb-2">
                        Password
                 </label>
 
@@ -119,11 +119,11 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="w-full border border-[var(--color-accent)] 
+                    className="w-full border border-(--color-accent) 
                                rounded-xl px-4 py-3 pr-12
                                focus:outline-none 
                                focus:ring-2 
-                               focus:ring-[var(--color-primary)]
+                               focus:ring-(--color-primary)
                                transition-all duration-300"
                   />
 
@@ -131,7 +131,7 @@ export default function Login() {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 
-                               text-[var(--color-secondary)]"
+                               text-(--color-secondary)"
                   >
                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
@@ -142,8 +142,8 @@ export default function Login() {
               <button
                 type="button"
                 onClick={handleLogin}
-                className="w-full bg-[var(--color-secondary)] 
-                           hover:bg-[var(--color-primary-dark)]
+                className="w-full bg-(--color-secondary) 
+                           hover:bg-(--color-primary-dark)
                            text-white py-3 rounded-xl 
                            font-semibold transition-all duration-300
                            shadow-lg hover:shadow-xl"
@@ -152,7 +152,7 @@ export default function Login() {
               </button>
 
               <Link to="/">
-                <p className="text-[var(--color-primary)] 
+                <p className="text-(--color-primary) 
                               text-center hover:underline mt-4 text-sm">
                   Forgot your password?
                 </p>
