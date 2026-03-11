@@ -3,7 +3,7 @@ import axios from "axios";
 import StatCard from "../components/StatCard";
 import LeavePieChart from "../components/LeavePieChart";
 import AttendanceLineChart from "../components/AttendanceLineChart";
-
+ 
 interface DashboardStats {
   totalEmployees: number;
   totalDepartments: number;
@@ -11,27 +11,27 @@ interface DashboardStats {
   todayPresent: number;
   todayAbsent: number;
 }
-
+ 
 interface RecentActivity {
   id: string;
   description: string;
   timestamp: string;
   type: 'leave' | 'attendance' | 'department' | 'hr';
 }
-
+ 
 const Dashboard = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [analytics, setAnalytics] = useState<any>(null);
   const [recentActivities, setRecentActivities] = useState<RecentActivity[]>([]);
   const [loading, setLoading] = useState(true);
-
+ 
   const token = localStorage.getItem("token");
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        
+       
         // Uncomment for actual API calls
         // const headers = { Authorization: `Bearer ${token}` };
         // const [statsRes, analyticsRes, activitiesRes] = await Promise.all([
@@ -39,11 +39,11 @@ const Dashboard = () => {
         //   axios.get("http://localhost:3000/dashboard/analytics", { headers }),
         //   axios.get("http://localhost:3000/dashboard/recent-activities", { headers })
         // ]);
-        
+       
         // setStats(statsRes.data);
         // setAnalytics(analyticsRes.data);
         // setRecentActivities(activitiesRes.data);
-
+ 
         // 🔥 Mock Data with enhanced information
         const mockStats: DashboardStats = {
           totalEmployees: 120,
@@ -52,7 +52,7 @@ const Dashboard = () => {
           todayPresent: 98,
           todayAbsent: 22,
         };
-
+ 
         const mockAnalytics = {
           leaveDistribution: [
             { name: "Approved", value: 20 },
@@ -66,46 +66,46 @@ const Dashboard = () => {
             { month: "Apr", present: 98, absent: 22 },
           ],
         };
-
+ 
         const mockActivities: RecentActivity[] = [
-          { 
-            id: '1', 
-            description: 'John Doe applied for sick leave', 
+          {
+            id: '1',
+            description: 'John Doe applied for sick leave',
             timestamp: '2 hours ago',
             type: 'leave'
           },
-          { 
-            id: '2', 
-            description: 'HR approved 2 leave requests', 
+          {
+            id: '2',
+            description: 'HR approved 2 leave requests',
             timestamp: '3 hours ago',
             type: 'hr'
           },
-          { 
-            id: '3', 
-            description: '5 employees checked in today', 
+          {
+            id: '3',
+            description: '5 employees checked in today',
             timestamp: '4 hours ago',
             type: 'attendance'
           },
-          { 
-            id: '4', 
-            description: 'New department "Engineering" created', 
+          {
+            id: '4',
+            description: 'New department "Engineering" created',
             timestamp: '1 day ago',
             type: 'department'
           },
-          { 
-            id: '5', 
-            description: 'Sarah Johnson requested work from home', 
+          {
+            id: '5',
+            description: 'Sarah Johnson requested work from home',
             timestamp: '1 day ago',
             type: 'leave'
           },
-          { 
-            id: '6', 
-            description: 'Monthly attendance report generated', 
+          {
+            id: '6',
+            description: 'Monthly attendance report generated',
             timestamp: '2 days ago',
             type: 'hr'
           },
         ];
-
+ 
         setStats(mockStats);
         setAnalytics(mockAnalytics);
         setRecentActivities(mockActivities);
@@ -115,10 +115,10 @@ const Dashboard = () => {
         setLoading(false);
       }
     };
-
+ 
     fetchData();
   }, []);
-
+ 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -126,7 +126,7 @@ const Dashboard = () => {
       </div>
     );
   }
-
+ 
   if (!stats || !analytics) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -134,7 +134,7 @@ const Dashboard = () => {
       </div>
     );
   }
-
+ 
   return (
     <div className="space-y-6 p-6">
       {/* Welcome Section */}
@@ -146,38 +146,38 @@ const Dashboard = () => {
           Manage employees, departments, attendance and leave easily.
         </p>
       </div>
-
+ 
       {/* Stats Cards - Using the enhanced design from code2 */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
-        <StatCard 
-          title="Total Employees" 
+        <StatCard
+          title="Total Employees"
           value={stats.totalEmployees}
           borderColor="border-[var(--color-primary)]"
         />
-        <StatCard 
-          title="Departments" 
+        <StatCard
+          title="Departments"
           value={stats.totalDepartments}
           borderColor="border-[var(--color-secondary)]"
         />
-        <StatCard 
-          title="Pending Leaves" 
+        <StatCard
+          title="Pending Leaves"
           value={stats.pendingLeaves}
           borderColor="border-[var(--color-primary)]"
         />
-        <StatCard 
-          title="Present Today" 
+        <StatCard
+          title="Present Today"
           value={stats.todayPresent}
           borderColor="border-[var(--color-secondary)]"
           subtitle={`${Math.round((stats.todayPresent / stats.totalEmployees) * 100)}% attendance`}
         />
-        <StatCard 
-          title="Absent Today" 
+        <StatCard
+          title="Absent Today"
           value={stats.todayAbsent}
           borderColor="border-red-500"
           subtitle={`${Math.round((stats.todayAbsent / stats.totalEmployees) * 100)}% absent`}
         />
       </div>
-
+ 
       {/* Charts Section with improved layout */}
       <div className="grid lg:grid-cols-2 gap-6">
         <div className="bg-white rounded-xl shadow p-6">
@@ -193,7 +193,7 @@ const Dashboard = () => {
           <AttendanceLineChart data={analytics.monthlyAttendance} />
         </div>
       </div>
-
+ 
       {/* Recent Activity Section - Enhanced from code2 */}
       <div className="bg-white rounded-xl shadow p-6">
         <div className="flex items-center justify-between mb-4">
@@ -204,10 +204,10 @@ const Dashboard = () => {
             View All
           </span>
         </div>
-
+ 
         <div className="space-y-4">
           {recentActivities.map((activity) => (
-            <div 
+            <div
               key={activity.id}
               className="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
             >
@@ -218,12 +218,12 @@ const Dashboard = () => {
                 activity.type === 'department' ? 'bg-blue-500' :
                 'bg-purple-500'
               }`} />
-              
+             
               <div className="flex-1">
                 <p className="text-gray-700 text-sm">{activity.description}</p>
                 <p className="text-xs text-gray-500 mt-1">{activity.timestamp}</p>
               </div>
-              
+             
               {/* Type badge */}
               <span className={`text-xs px-2 py-1 rounded-full ${
                 activity.type === 'leave' ? 'bg-yellow-100 text-yellow-800' :
@@ -236,7 +236,7 @@ const Dashboard = () => {
             </div>
           ))}
         </div>
-
+ 
         {/* Quick Stats Footer */}
         <div className="mt-6 pt-4 border-t border-gray-100 grid grid-cols-3 gap-4 text-center">
           <div>
@@ -262,5 +262,6 @@ const Dashboard = () => {
     </div>
   );
 };
-
+ 
 export default Dashboard;
+ 
